@@ -1,55 +1,74 @@
-import co.edu.uniquindio.tallerAgenda.model.Agenda;
-import co.edu.uniquindio.tallerAgenda.model.Contacto;
-import co.edu.uniquindio.tallerAgenda.model.Grupo;
-import co.edu.uniquindio.tallerAgenda.model.Reunion;
-import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import co.edu.uniquindio.poo.model.Agenda;
+import co.edu.uniquindio.poo.model.Categoria;
+import co.edu.uniquindio.poo.model.Contacto;
+import co.edu.uniquindio.poo.model.Grupo;
+import co.edu.uniquindio.poo.model.Reunion;
 
 public class AgendaTest {
+
     private Agenda agenda;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         agenda = new Agenda();
     }
 
     @Test
     public void testAgregarContacto() {
-        Contacto contacto = new Contacto("Juan", "123456789", "juan@example.com");
+        Contacto contacto = new Contacto("JuanES","Pacho","Las americas",
+        
+        "3054795632","juanesgaleano@prueba.com");
         agenda.agregarContacto(contacto);
+
         List<Contacto> contactos = agenda.getContactos();
         assertEquals(1, contactos.size());
-        assertEquals("Juan", contactos.get(0).getNombre());
+        assertEquals("Juan Pérez", contactos.get(0).getNombre());
     }
 
     @Test
     public void testEliminarContacto() {
-        Contacto contacto = new Contacto("Juan", "123456789", "juan@example.com");
+        Contacto contacto = new Contacto("Juanes","Pacho","Las americas",
+        "3054795632","juanesgaleano@prueba.com");
         agenda.agregarContacto(contacto);
-        boolean eliminado = agenda.eliminarContacto("Juan");
+
+        boolean eliminado = agenda.eliminarContacto("Juan Pérez");
         assertTrue(eliminado);
-        assertEquals(0, agenda.getContactos().size());
+
+        List<Contacto> contactos = agenda.getContactos();
+        assertEquals(0, contactos.size());
     }
 
     @Test
     public void testModificarContacto() {
-        Contacto contacto = new Contacto("Juan", "123456789", "juan@example.com");
+        Contacto contacto = new Contacto("Juanes","Pacho","Las americas",
+        
+        "3054795632","juanesgaleano@prueba.com");
         agenda.agregarContacto(contacto);
-        Contacto contactoModificado = new Contacto("Juan", "987654321", "juanNuevo@example.com");
-        boolean modificado = agenda.modificarContacto("Juan", contactoModificado);
+
+        Contacto contactoModificado = new Contacto("Juan Modificado", "JuanitoM","acacias","3054795621","prueba25@gmail.com");
+        boolean modificado = agenda.modificarContacto("Juan Pérez", contactoModificado);
+
         assertTrue(modificado);
-        assertEquals("987654321", agenda.getContactos().get(0).getTelefono());
+
+        Contacto contactoActualizado = agenda.getContactos().get(0);
+        assertEquals("Juan Modificado", contactoActualizado.getNombre());
     }
 
     @Test
     public void testAgregarGrupo() {
-        Grupo grupo = new Grupo("Amigos");
+        Grupo grupo = new Grupo("Amigos",Categoria.FIESTA);
         agenda.agregarGrupo(grupo);
+
         List<Grupo> grupos = agenda.getGrupos();
         assertEquals(1, grupos.size());
         assertEquals("Amigos", grupos.get(0).getNombre());
@@ -57,30 +76,42 @@ public class AgendaTest {
 
     @Test
     public void testEliminarGrupo() {
-        Grupo grupo = new Grupo("Amigos");
+        Grupo grupo = new Grupo("Amigos",Categoria.FIESTA);
         agenda.agregarGrupo(grupo);
+
         boolean eliminado = agenda.eliminarGrupo("Amigos");
         assertTrue(eliminado);
-        assertEquals(0, agenda.getGrupos().size());
+
+        List<Grupo> grupos = agenda.getGrupos();
+        assertEquals(0, grupos.size());
     }
 
     @Test
     public void testAgregarReunion() {
-        Reunion reunion = new Reunion("Reunión de Proyecto", "10/09/2024");
+        Grupo grupo = new Grupo("Trabajo",Categoria.OFICINA);
+        agenda.agregarGrupo(grupo);
+
+        Reunion reunion = new Reunion("Reunión de Trabajo", "Discusión de proyectos", new Date(), new Time(System.currentTimeMillis()), grupo.getContactos());
         agenda.agregarReunion(reunion);
+
         List<Reunion> reuniones = agenda.getReuniones();
         assertEquals(1, reuniones.size());
-        assertEquals("Reunión de Proyecto", reuniones.get(0).getTema());
+        assertEquals("Reunión de Trabajo", reuniones.get(0).getTema());
     }
 
     @Test
     public void testEliminarAsistenteDeReunion() {
-        Contacto contacto = new Contacto("Juan", "123456789", "juan@example.com");
-        agenda.agregarContacto(contacto);
-        Reunion reunion = new Reunion("Reunión de Proyecto", "10/09/2024");
+        Grupo grupo = new Grupo("Trabajo", Categoria.OFICINA);
+        Contacto contacto = new Contacto("Pedro Gómez", "Pedro","Las americas","38728721","prueba124@gmail.com");
+        grupo.agregarContacto(contacto);
+        agenda.agregarGrupo(grupo);
+
+        Reunion reunion = new Reunion("Reunión de Trabajo", "Discusión de proyectos", new Date(), new Time(System.currentTimeMillis()), grupo.getContactos());
         agenda.agregarReunion(reunion);
-        agenda.agregarContactoAReunion("Reunión de Proyecto", "Juan");
-        agenda.eliminarAsistenteDeReunion("Reunión de Proyecto", "Juan");
-        assertTrue(reunion.getAsistentes().isEmpty());
+
+        agenda.eliminarAsistenteDeReunion("Reunión de Trabajo", "Pedro Gómez");
+
+        List<Contacto> asistentes = agenda.getReuniones().get(0).getAsistentes();
+        assertEquals(1, asistentes.size());
     }
 }

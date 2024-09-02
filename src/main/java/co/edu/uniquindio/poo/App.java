@@ -1,4 +1,4 @@
-package co.edu.uniquindio.tallerAgenda;
+package co.edu.uniquindio.poo;
 
 import java.sql.Time;
 import java.text.ParseException;
@@ -7,13 +7,13 @@ import java.util.Date;
 
 import javax.swing.JOptionPane;
 
-import co.edu.uniquindio.tallerAgenda.model.Agenda;
-import co.edu.uniquindio.tallerAgenda.model.Categoria;
-import co.edu.uniquindio.tallerAgenda.model.Contacto;
-import co.edu.uniquindio.tallerAgenda.model.Grupo;
-import co.edu.uniquindio.tallerAgenda.model.Reunion;
+import co.edu.uniquindio.poo.model.Agenda;
+import co.edu.uniquindio.poo.model.Categoria;
+import co.edu.uniquindio.poo.model.Contacto;
+import co.edu.uniquindio.poo.model.Grupo;
+import co.edu.uniquindio.poo.model.Reunion;
 
-public class Main {
+public class App {
     public static void main(String[] args) {
         // Crear una instancia de Agenda
         Agenda agenda = new Agenda();

@@ -1,4 +1,4 @@
-package co.edu.uniquindio.tallerAgenda.model;
+package co.edu.uniquindio.poo.model;
 
 public enum Categoria {
     OFICINA,

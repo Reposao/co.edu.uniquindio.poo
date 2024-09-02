@@ -1,4 +1,4 @@
-package co.edu.uniquindio.tallerAgenda.model;
+package co.edu.uniquindio.poo.model;
 
 import java.sql.Time;
 import java.util.ArrayList;
