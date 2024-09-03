@@ -16,8 +16,33 @@ public class Agenda {
         reuniones = new ArrayList<>();
     }
 
+   
+    
     public void agregarContacto(Contacto contacto) {
-        contactos.add(contacto);
+        if (esNombreRepetido(contacto.getNombre())) {
+            JOptionPane.showMessageDialog(null, "El nombre ya existe en la agenda.");
+        } else if (esNumeroRepetido(contacto.getTelefono())) {
+            JOptionPane.showMessageDialog(null, "El número ya existe en la agenda.");
+        } else {
+            contactos.add(contacto);
+            JOptionPane.showMessageDialog(null, "Contacto agregado exitosamente.");
+        }
+    }
+    private boolean esNombreRepetido(String nombre) {
+        for (Contacto c : contactos) {
+            if (c.getNombre().equalsIgnoreCase(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean esNumeroRepetido(String numero) {
+        for (Contacto c : contactos) {
+            if (c.getTelefono().equals(numero)) {  // Suponiendo que el número es un String
+                return true;
+            }
+        }
+        return false;
     }
 
     public void mostrarContactos() {

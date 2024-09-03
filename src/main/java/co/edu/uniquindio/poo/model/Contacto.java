@@ -1,21 +1,53 @@
 package co.edu.uniquindio.poo.model;
 
 public class Contacto {
-        public String nombre;
-        public String alias;
-        public String direccion;
-        public String telefono;
-        public String email;
+            /**
+     * Nombre del contacto.
+     */
+    public String nombre;
 
-        public Contacto(){
-        }
-        public Contacto(String nombre, String alias, String direccion, String telefono, String email){
-            this.nombre=nombre;
-            this.alias=alias;
-            this.direccion=direccion;
-            this.telefono=telefono;
-            this.email=email;
-        }
+    /**
+     * Alias del contacto.
+     */
+    public String alias;
+
+    /**
+     * Dirección del contacto.
+     */
+    public String direccion;
+
+    /**
+     * Teléfono del contacto.
+     */
+    public String telefono;
+
+    /**
+     * Correo electrónico del contacto.
+     */
+    public String email;
+
+    /**
+     * Constructor por defecto de la clase Contacto.
+     */
+    public Contacto() {
+    }
+
+    /**
+     * Constructor que inicializa un contacto con todos sus atributos.
+     *
+     * @param nombre    Nombre del contacto.
+     * @param alias     Alias del contacto.
+     * @param direccion Dirección del contacto.
+     * @param telefono  Teléfono del contacto.
+     * @param email     Correo electrónico del contacto.
+     */
+    public Contacto(String nombre, String alias, String direccion, String telefono, String email) {
+        this.nombre = nombre;
+        this.alias = alias;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.email = email;
+    }
 
 
     public String getNombre() {
@@ -56,6 +88,12 @@ public class Contacto {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
+
+    /**
+     * Devuelve una representación en cadena del contacto.
+     *
+     * @return Una cadena con la información del contacto.
+     */
     @Override
     public String toString() {
         return "Contacto: " +

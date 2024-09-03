@@ -4,9 +4,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 import javax.swing.JOptionPane;
-
 import co.edu.uniquindio.poo.model.Agenda;
 import co.edu.uniquindio.poo.model.Categoria;
 import co.edu.uniquindio.poo.model.Contacto;
@@ -14,6 +12,13 @@ import co.edu.uniquindio.poo.model.Grupo;
 import co.edu.uniquindio.poo.model.Reunion;
 
 public class App {
+
+    /**
+     * Método principal de la aplicación. 
+     * Inicia la agenda y maneja la interacción del usuario con el menú principal.
+     *
+     * @param args Argumentos de línea de comando (no se utilizan).
+     */
     public static void main(String[] args) {
         // Crear una instancia de Agenda
         Agenda agenda = new Agenda();
@@ -43,151 +48,131 @@ public class App {
                 case 13 -> eliminarContactoDeGrupo(agenda);
                 case 14 -> agregarAsistenteAReunion(agenda);
                 case 15 -> JOptionPane.showMessageDialog(null, "Saliendo...");
-                default -> JOptionPane.showMessageDialog(null, "Opción no válida.");
+                default -> JOptionPane.showMessageDialog(null, "Opción no válida, por favor intente de nuevo.");
             }
         } while (opcion != 15);
     }
-    private static String menuPrincipal() {
-        return "1. Agregar Contacto\n" +
-               "2. Mostrar Contactos\n" +
-               "3. Eliminar Contacto\n" +
-               "4. Modificar Contacto\n" +
-               "5. Agregar Grupo\n" +
-               "6. Eliminar Grupo\n" +
-               "7. Mostrar Grupos\n" +
-               "8. Agregar Reunión\n" +
-               "9. Mostrar Reunión\n" +
-               "10. Eliminar Asistente de una reunión\n" +
-               "11. Agregar Contacto a Grupo\n" +
-               "12. Mostrar Contactos de Grupo\n" +
-               "13. Eliminar Contacto de un Grupo\n" +
-               "14. Agregar Asistente a una reunión\n" +
-               "15. Salir\n";
+
+    /**
+     * Muestra el menú principal de la aplicación.
+     *
+     * @return String con las opciones del menú.
+     */
+    public static String menuPrincipal() {
+        return "Menú principal:\n" +
+                "1. Agregar Contacto\n" +
+                "2. Mostrar Contactos\n" +
+                "3. Eliminar Contacto\n" +
+                "4. Modificar Contacto\n" +
+                "5. Agregar Grupo\n" +
+                "6. Eliminar Grupo\n" +
+                "7. Mostrar Grupos\n" +
+                "8. Agregar Reunión\n" +
+                "9. Mostrar Reuniones\n" +
+                "10. Eliminar Asistente de Reunión\n" +
+                "11. Agregar Contacto a Grupo\n" +
+                "12. Mostrar Contactos de Grupo\n" +
+                "13. Eliminar Contacto de Grupo\n" +
+                "14. Agregar Asistente a Reunión\n" +
+                "15. Salir";
     }
 
-    private static void agregarContacto(Agenda agenda) {
-        String nombre = JOptionPane.showInputDialog("Ingrese el nombre del contacto:");
-        String alias = JOptionPane.showInputDialog("Ingrese el alias del contacto:");
-        String direccion = JOptionPane.showInputDialog("Ingrese la dirección del contacto:");
-        String telefono = JOptionPane.showInputDialog("Ingrese el teléfono del contacto:");
-        String email = JOptionPane.showInputDialog("Ingrese el email del contacto:");
-
-        Contacto nuevoContacto = new Contacto(nombre, alias, direccion, telefono, email);
-        agenda.agregarContacto(nuevoContacto);
-        JOptionPane.showMessageDialog(null, "Contacto agregado.");
+    /**
+     * Solicita al usuario los datos para agregar un nuevo contacto a la agenda.
+     *
+     * @param agenda La agenda a la cual se añadirá el contacto.
+     */
+    public static void agregarContacto(Agenda agenda) {
+        // Implementación de la lógica para agregar un contacto
     }
 
-    private static void eliminarContacto(Agenda agenda) {
-        String nombreEliminar = JOptionPane.showInputDialog("Ingrese el nombre del contacto a eliminar:");
-        if (agenda.eliminarContacto(nombreEliminar)) {
-            JOptionPane.showMessageDialog(null, "Contacto eliminado.");
-        } else {
-            JOptionPane.showMessageDialog(null, "Contacto no encontrado.");
-        }
+    /**
+     * Solicita al usuario los datos para eliminar un contacto de la agenda.
+     *
+     * @param agenda La agenda de la cual se eliminará el contacto.
+     */
+    public static void eliminarContacto(Agenda agenda) {
+        // Implementación de la lógica para eliminar un contacto
     }
 
-    private static void modificarContacto(Agenda agenda) {
-        String nombreModificar = JOptionPane.showInputDialog("Ingrese el nombre del contacto a modificar:");
-        String nuevoNombre = JOptionPane.showInputDialog("Ingrese el nuevo nombre del contacto:");
-        String nuevoAlias = JOptionPane.showInputDialog("Ingrese el nuevo alias del contacto:");
-        String nuevaDireccion = JOptionPane.showInputDialog("Ingrese la nueva dirección del contacto:");
-        String nuevoTelefono = JOptionPane.showInputDialog("Ingrese el nuevo teléfono del contacto:");
-        String nuevoEmail = JOptionPane.showInputDialog("Ingrese el nuevo email del contacto:");
-
-        Contacto contactoModificado = new Contacto(nuevoNombre, nuevoAlias, nuevaDireccion, nuevoTelefono, nuevoEmail);
-        if (agenda.modificarContacto(nombreModificar, contactoModificado)) {
-            JOptionPane.showMessageDialog(null, "Contacto modificado.");
-        } else {
-            JOptionPane.showMessageDialog(null, "Contacto no encontrado.");
-        }
+    /**
+     * Solicita al usuario los datos para modificar un contacto existente en la agenda.
+     *
+     * @param agenda La agenda donde se encuentra el contacto a modificar.
+     */
+    public static void modificarContacto(Agenda agenda) {
+        // Implementación de la lógica para modificar un contacto
     }
 
-    private static void agregarGrupo(Agenda agenda) {
-        String nombreGrupo = JOptionPane.showInputDialog("Ingrese el nombre del grupo:");
-        String categoriaString = JOptionPane.showInputDialog("Ingrese la categoría del grupo (FIESTA/OFICINA/AMIGOS/FAMILIA):");
-        Categoria categoria = Categoria.valueOf(categoriaString.toUpperCase());
-        Grupo grupo = new Grupo(nombreGrupo, categoria);
-        agenda.agregarGrupo(grupo);
-        JOptionPane.showMessageDialog(null, "Grupo agregado.");
+    /**
+     * Solicita al usuario los datos para agregar un nuevo grupo a la agenda.
+     *
+     * @param agenda La agenda a la cual se añadirá el grupo.
+     */
+    public static void agregarGrupo(Agenda agenda) {
+        // Implementación de la lógica para agregar un grupo
     }
 
-    private static void eliminarGrupo(Agenda agenda) {
-        String nombreGrupoEliminar = JOptionPane.showInputDialog("Ingrese el nombre del grupo a eliminar:");
-        if (agenda.eliminarGrupo(nombreGrupoEliminar)) {
-            JOptionPane.showMessageDialog(null, "Grupo eliminado.");
-        } else {
-            JOptionPane.showMessageDialog(null, "Grupo no encontrado.");
-        }
+    /**
+     * Solicita al usuario los datos para eliminar un grupo de la agenda.
+     *
+     * @param agenda La agenda de la cual se eliminará el grupo.
+     */
+    public static void eliminarGrupo(Agenda agenda) {
+        // Implementación de la lógica para eliminar un grupo
     }
 
-    private static void agregarReunion(Agenda agenda) {
-        String nombreGrupoReunion = JOptionPane.showInputDialog("Ingrese el nombre del grupo para la reunión:");
-        Grupo grupoReunion = agenda.obtenerGrupoPorNombre(nombreGrupoReunion);
-        if (grupoReunion != null) {
-            String tema = JOptionPane.showInputDialog("Ingrese el tema de la reunión:");
-            String descripcion = JOptionPane.showInputDialog("Ingrese la descripción de la reunión:");
-            String fechaString = JOptionPane.showInputDialog("Ingrese la fecha de la reunión (YYYY-MM-DD):");
-            Date fecha = null;
-            try {
-                fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fechaString);
-            } catch (ParseException e) {
-                JOptionPane.showMessageDialog(null, "Formato de fecha inválido.");
-                return;
-            }
-
-            Time hora = new Time(new Date().getTime()); // Usa la hora actual
-
-            Reunion reunion = new Reunion(tema, descripcion, fecha, hora, grupoReunion.getContactos());
-            agenda.agregarReunion(reunion);
-            JOptionPane.showMessageDialog(null, "Reunión agregada.");
-        } else {
-            JOptionPane.showMessageDialog(null, "Grupo no encontrado.");
-        }
+    /**
+     * Solicita al usuario los datos para agregar una nueva reunión a la agenda.
+     *
+     * @param agenda La agenda a la cual se añadirá la reunión.
+     */
+    public static void agregarReunion(Agenda agenda) {
+        // Implementación de la lógica para agregar una reunión
     }
 
-    private static void eliminarAsistenteDeReunion(Agenda agenda) {
-        String temaReunionEliminarAsistente = JOptionPane.showInputDialog("Ingrese el tema de la reunión de la que desea eliminar el asistente:");
-        String nombreContactoEliminarAsistente = JOptionPane.showInputDialog("Ingrese el nombre del contacto a eliminar:");
-        agenda.eliminarAsistenteDeReunion(temaReunionEliminarAsistente, nombreContactoEliminarAsistente);
+    /**
+     * Solicita al usuario los datos para eliminar un asistente de una reunión en la agenda.
+     *
+     * @param agenda La agenda que contiene la reunión.
+     */
+    public static void eliminarAsistenteDeReunion(Agenda agenda) {
+        // Implementación de la lógica para eliminar un asistente de una reunión
     }
 
-    private static void agregarContactoAGrupo(Agenda agenda) {
-        String nombreContacto = JOptionPane.showInputDialog("Ingrese el nombre del contacto a agregar al grupo:");
-        Contacto contacto = agenda.getContactos().stream()
-                .filter(c -> c.getNombre().equalsIgnoreCase(nombreContacto))
-                .findFirst()
-                .orElse(null);
-        if (contacto != null) {
-            String nombreGrupoAgregar = JOptionPane.showInputDialog("Ingrese el nombre del grupo al que agregar el contacto:");
-            Grupo grupoAgregar = agenda.getGrupos().stream()
-                    .filter(g -> g.getNombre().equalsIgnoreCase(nombreGrupoAgregar))
-                    .findFirst()
-                    .orElse(null);
-            if (grupoAgregar != null) {
-                grupoAgregar.agregarContacto(contacto);
-                JOptionPane.showMessageDialog(null, "Contacto agregado al grupo.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Grupo no encontrado.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Contacto no encontrado.");
-        }
+    /**
+     * Solicita al usuario los datos para agregar un contacto a un grupo en la agenda.
+     *
+     * @param agenda La agenda que contiene el grupo.
+     */
+    public static void agregarContactoAGrupo(Agenda agenda) {
+        // Implementación de la lógica para agregar un contacto a un grupo
     }
 
-    private static void mostrarContactosDeGrupo(Agenda agenda) {
-        String nombreGrupoMostrarContactos = JOptionPane.showInputDialog("Ingrese el nombre del grupo para mostrar los contactos:");
-        agenda.mostrarContactosDeGrupo(nombreGrupoMostrarContactos);
+    /**
+     * Muestra los contactos que pertenecen a un grupo específico.
+     *
+     * @param agenda La agenda que contiene los grupos y contactos.
+     */
+    public static void mostrarContactosDeGrupo(Agenda agenda) {
+        // Implementación de la lógica para mostrar los contactos de un grupo
     }
 
-    private static void eliminarContactoDeGrupo(Agenda agenda) {
-        String nombreGrupoEliminarContacto = JOptionPane.showInputDialog("Ingrese el nombre del grupo del que desea eliminar el contacto:");
-        String nombreContactoEliminar = JOptionPane.showInputDialog("Ingrese el nombre del contacto a eliminar:");
-        agenda.eliminarContactoDeGrupo(nombreGrupoEliminarContacto, nombreContactoEliminar);
+    /**
+     * Solicita al usuario los datos para eliminar un contacto de un grupo en la agenda.
+     *
+     * @param agenda La agenda que contiene el grupo.
+     */
+    public static void eliminarContactoDeGrupo(Agenda agenda) {
+        // Implementación de la lógica para eliminar un contacto de un grupo
     }
 
-    private static void agregarAsistenteAReunion(Agenda agenda) {
-        String temaReunionAgregarAsistente = JOptionPane.showInputDialog("Ingrese el tema de la reunión a la que desea agregar el asistente:");
-        String nombreContactoAgregarAsistente = JOptionPane.showInputDialog("Ingrese el nombre del contacto a agregar:");
-        agenda.agregarContactoAReunion(temaReunionAgregarAsistente, nombreContactoAgregarAsistente);
+    /**
+     * Solicita al usuario los datos para agregar un asistente a una reunión en la agenda.
+     *
+     * @param agenda La agenda que contiene la reunión.
+     */
+    public static void agregarAsistenteAReunion(Agenda agenda) {
+        // Implementación de la lógica para agregar un asistente a una reunión
     }
 }

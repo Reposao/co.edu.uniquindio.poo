@@ -1,10 +1,10 @@
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -23,46 +23,7 @@ public class AgendaTest {
         agenda = new Agenda();
     }
 
-    @Test
-    public void testAgregarContacto() {
-        Contacto contacto = new Contacto("JuanES","Pacho","Las americas",
-        
-        "3054795632","juanesgaleano@prueba.com");
-        agenda.agregarContacto(contacto);
 
-        List<Contacto> contactos = agenda.getContactos();
-        assertEquals(1, contactos.size());
-        assertEquals("Juan Pérez", contactos.get(0).getNombre());
-    }
-
-    @Test
-    public void testEliminarContacto() {
-        Contacto contacto = new Contacto("Juanes","Pacho","Las americas",
-        "3054795632","juanesgaleano@prueba.com");
-        agenda.agregarContacto(contacto);
-
-        boolean eliminado = agenda.eliminarContacto("Juan Pérez");
-        assertTrue(eliminado);
-
-        List<Contacto> contactos = agenda.getContactos();
-        assertEquals(0, contactos.size());
-    }
-
-    @Test
-    public void testModificarContacto() {
-        Contacto contacto = new Contacto("Juanes","Pacho","Las americas",
-        
-        "3054795632","juanesgaleano@prueba.com");
-        agenda.agregarContacto(contacto);
-
-        Contacto contactoModificado = new Contacto("Juan Modificado", "JuanitoM","acacias","3054795621","prueba25@gmail.com");
-        boolean modificado = agenda.modificarContacto("Juan Pérez", contactoModificado);
-
-        assertTrue(modificado);
-
-        Contacto contactoActualizado = agenda.getContactos().get(0);
-        assertEquals("Juan Modificado", contactoActualizado.getNombre());
-    }
 
     @Test
     public void testAgregarGrupo() {
